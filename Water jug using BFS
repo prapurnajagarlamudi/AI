@@ -1,0 +1,73 @@
+def bfs(start,dest,j1,j2):
+    o_l=[]
+    o_l.append(start)
+    c_l=[]
+    path=[]
+    while o_l:
+        s=o_l.pop(0)
+        path.append(s)
+        x=s[0]
+        y=s[1]
+        if x==dest[0] and y==dest[1]:
+            print("path found")
+            return path
+        c_l.append([s[0],s[1]])
+        #rule1
+        if s[0]<j1 and ([j1,s[1]] not in c_l):
+            o_l.append([j1,s[1]])
+            c_l.append([j1,s[1]])
+        #rule2
+        if s[1]<j2 and ([s[0],j2] not in c_l):
+            o_l.append([s[0],j2])
+            c_l.append([s[0],j2])
+        #rule3
+        if s[0]>0 and ([0,s[1]] not in c_l):
+            o_l.append([0,s[1]])
+            c_l.append([0,s[1]])
+        #rule4
+        if s[1]>0 and ([s[0],0] not in c_l):
+            o_l.append([s[0],0])
+            c_l.append([s[0],0])
+        #rule5
+        if (s[0]+s[1])<=j1 and s[0]>=0 and ([s[0]+s[1],0] not in c_l):
+            o_l.append([s[0]+s[1],0])
+            c_l.append([s[0]+s[1],0])
+        #rule6
+        if (s[0]+s[1])<=j2 and s[0]>0 and ([0,s[0]+s[1]] not in c_l):
+            o_l.append([0,s[0]+s[1]])
+            c_l.append([0,s[0]+s[1]])
+        #rule7
+        if (s[0]+s[1])>=j1 and s[1]>=0 and ([j1,s[1]-(j1-s[0])] not in c_l):
+            o_l.append([j1,s[1]-(j1-s[0])])
+            c_l.append([j1,s[1]-(j1-s[0])])
+        #rule8
+        if (s[0]+s[1])>=j2 and s[0]>0 and ([s[0]-(j2-s[1]),j2] not in c_l):
+            o_l.append([s[0]-(j2-s[1]),j2])
+            c_l.append([s[0]-(j2-s[1]),j2])
+    return "no path"
+j1=int(input("Enter the capacity of jug1"))
+j2=int(input("Enter the capacity of jug2"))
+start=[0,0]
+dest=[2,0]
+bfs(start,dest,j1,j2)
+
+
+output:
+
+Enter the capacity of jug14
+Enter the capacity of jug23
+path found
+[[0, 0],
+ [4, 0],
+ [0, 3],
+ [4, 3],
+ [1, 3],
+ [3, 0],
+ [1, 0],
+ [3, 3],
+ [0, 1],
+ [4, 2],
+ [4, 1],
+ [0, 2],
+ [2, 3],
+ [2, 0]]
